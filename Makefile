@@ -8,8 +8,8 @@ TEXFLAGS=-file-line-error -halt-on-error
 all: presentation.pdf
 
 %.pdf: %.tex
-	$(TEXCC) $(TEXFLAGS) $<
+	$(TEXCC) $(TEXFLAGS) $< && $(TEXCC) $(TEXFLAGS) $< 
 
 clean: 
 	rm -f \
-	  presentation.{nav,out,snm,toc}
+	  presentation.{log,nav,out,snm,toc,aux,pdf}
