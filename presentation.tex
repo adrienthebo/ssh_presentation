@@ -1,0 +1,185 @@
+\documentclass{beamer}
+
+\mode<presentation> {\usetheme{Antibes} }
+
+\usepackage{times}
+
+\title{SSH}
+
+\author{
+Finch \\
+The CAT
+}
+
+\AtBeginSection[]
+{
+  \begin{frame}<beamer>
+    \frametitle{Outline}
+    \tableofcontents[currentsection]
+  \end{frame}
+}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\section{Introduction}
+
+\begin{frame}
+  \frametitle{Secure Shell - What is it?}
+  \begin{itemize}
+    \item Network protocol designed to allow exchange of data between two systems
+    \item Designed with security in mind - secure connection over insecure medium
+    \item Co-opted to do more than just shells
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Before SSH}
+  \begin{itemize}
+    \item The roles that SSH serve today were done by other means
+    \begin{itemize}
+      \item File transfer - ftp
+      \item Remote shell - rlogin
+      \item Remote graphics - XDMCP
+    \end{itemize}
+    \item All of these are unencrypted
+    \pause
+    \item Why is this a problem?
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{The Mysterious Tale of phantomd}
+He had discovered an account named Anitha on Sunday, June 9. If he had
+immediately stomped the account, he might have been able to wash his hands of
+the problem. Instead he had copied the (freely available) source code for
+Telnet from a computer at Berkeley on Monday. In a daylong bout of programming,
+he doctored Telnet to record all incoming and outgoing communications from the
+Anitha account. After installing the bugged Telnet, Janaka knocked off for some
+sleep. He came to the office Tuesday to find a pile of printout on his desk.
+\end{frame}
+
+\begin{frame}
+  \frametitle{We like encryption}
+  \begin{itemize}
+    \item In the day of ``Free Public Wifi,'' encryption is key
+    \item Encryption protects your banking information
+    \item Encryption protects your email
+    \item You probably want encryption for your {\bf ROOT SHELL}
+  \end{itemize}
+\end{frame}
+
+\section{An aside on cryptography}
+
+\begin{frame}
+  \frametitle{How does cryptography work?}
+  \begin{itemize}
+    \item There are two prominent types of cryptography
+    \item Symmetric cryptography
+    \item Asymmetric cryptography
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{A brief explanation of symmetric cryptography}
+  \begin{itemize}
+    \item Symmetric cryptography is any cryptographic scheme that uses the same key to encrypt or decrypt the payload
+    \item Both sides of the communication use the same shared secret to communicate
+    \item Examples:
+      \begin{itemize}
+	\item AES (Advanced Encryption Standard)
+	  \begin{itemize}
+	    \item A device that could check a billion billion AES keys per second would in theory require about $30^{51}$ years to exhaust the 256-bit key space.
+	  \end{itemize}
+	\item Blowfish
+	\item XOR
+    \end{itemize}
+    \pause
+  \item Symmetric algorithms are generally very fast, but have their limits
+  \item Since the same key is used for encryption and decryption, how do you start communication with another party?
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{A brief explanation of asymmetric cryptography}
+  \begin{itemize}
+    \item Asymmetric cryptography is any cryptographic scheme that uses different keys to encrypt and decrypt conversations 
+    \item Examples:
+      \begin{itemize}
+	\item RSA (Rivest, Shamir, Adleman)
+	\item DH (Diffie, Hellman)
+    \end{itemize}
+    \pause
+  \item Asymmetric algorithms are generally fairly slow, but allow for initiation secure communications between two parties
+  \item Thus, asymmetric algorithms can be used to start a symmetric cryptographic session
+    \begin{itemize}
+      \item Secure and easy initiation of communication
+      \item High rate of transfer
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\section{Using SSH}
+
+\begin{frame}
+  \frametitle{SSH Keys}
+  \begin{itemize}
+    \item SSH key pairs are ``key'' to how ssh works
+    \pause
+    \item One pair of keys for each host
+    \item This allows hosts to verify each other's identity, to avoid man in the middle attacks
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{SSH User Keys}
+  \begin{itemize}
+    \item User key pairs are also possible, to avoid using password authentication
+    \item Public key is copied to remote host, private key is kept secure on the local host
+    \item It is possible to password protect your private key, for an added layer of protection
+    \item SSH keypairs are effectively impossible to brute force - MUCH more secure than passwords.
+      \pause
+    \item Having many different keypairs for different machines is ideal
+    \item One key for you github account
+    \item One for your laptop
+    \item One for you desktop
+    \item One for CECS general access
+    \item One for highly secure machines
+      \pause
+    \ldots
+    \item That's a lot of passwords to type and memorize
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{SSH agent}
+  \begin{itemize}
+    \item ssh-agent will store your authentication information for each key added
+    \item 
+    \item Demo time!
+    \item (AKA I didn't have time to write this slide)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{SSH - not just for shells}
+  \begin{itemize}
+    \item SSH socks proxy
+    \item SSH port forwarding, local and remote
+    \item SSH X forwarding
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Configuring SSH}
+  \begin{itemize}
+    \item ssh\_config
+    \item authorized\_keys
+    \item known\_hosts
+  \end{itemize}
+\end{frame}
+
+\end{document}
